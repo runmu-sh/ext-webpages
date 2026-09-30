@@ -1,0 +1,62 @@
+{
+  "name": "@runmu.sh/ext-webpages",
+  "version": "1.0.1",
+  "description": "Lets the game open web pages in your client over GMCP Client.Web.Open (a Web tab per page, or a new window, per your Access → Open web pages setting).",
+  "keywords": [
+    "web",
+    "iframe",
+    "gmcp",
+    "web_panel"
+  ],
+  "license": "MIT",
+  "homepage": "https://runmu.sh/marketplace/x/webpages",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/runmu-sh/ext-webpages.git"
+  },
+  "bugs": {
+    "url": "https://github.com/runmu-sh/ext-webpages/issues"
+  },
+  "type": "module",
+  "exports": "./dist/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/dev.mjs",
+    "typecheck": "tsc --noEmit",
+    "check": "node scripts/build.mjs --check"
+  },
+  "devDependencies": {
+    "@muclient/sdk": "npm:@runmu.sh/sdk@^1.6.0",
+    "@runmu.sh/dev": "^0.1.0",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "muclient": {
+    "id": "webpages",
+    "api": "^1.6",
+    "source": "src/index.ts",
+    "displayName": "Web pages",
+    "description": "Lets the game open web pages in your client over GMCP Client.Web.Open (a Web tab per page, or a new window, per your Access → Open web pages setting).",
+    "categories": [
+      "interface"
+    ],
+    "contributes": {
+      "gmcp": [
+        "Client.Web 1"
+      ]
+    },
+    "capabilities": [
+      "read-output",
+      "open-web"
+    ],
+    "publisher": "bitmuse"
+  }
+}
