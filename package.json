@@ -1,6 +1,6 @@
 {
   "name": "@runmu.sh/ext-webpages",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Lets the game open web pages in your client over GMCP Client.Web.Open (a Web tab per page, or a new window, per your Access → Open web pages setting).",
   "keywords": [
     "web",
@@ -21,6 +21,7 @@
   "exports": "./dist/index.js",
   "files": [
     "dist",
+    "src/types.ts",
     "README.md",
     "CHANGELOG.md"
   ],
@@ -28,11 +29,12 @@
     "build": "node scripts/build.mjs",
     "dev": "node scripts/dev.mjs",
     "typecheck": "tsc --noEmit",
-    "check": "node scripts/build.mjs --check"
+    "check": "node scripts/build.mjs --check",
+    "test": "node --test test/*.test.mjs"
   },
   "devDependencies": {
-    "@muclient/sdk": "npm:@runmu.sh/sdk@^1.6.0",
-    "@runmu.sh/dev": "^0.1.0",
+    "@muclient/sdk": "npm:@runmu.sh/sdk@^1.12.0",
+    "@runmu.sh/dev": "^0.2.0",
     "esbuild": "^0.28.2",
     "typescript": "^5.9.0"
   },
@@ -41,7 +43,7 @@
   },
   "muclient": {
     "id": "webpages",
-    "api": "^1.6",
+    "api": "^1.12",
     "source": "src/index.ts",
     "displayName": "Web pages",
     "description": "Lets the game open web pages in your client over GMCP Client.Web.Open (a Web tab per page, or a new window, per your Access → Open web pages setting).",
@@ -50,13 +52,57 @@
     ],
     "contributes": {
       "gmcp": [
-        "Client.Web 1"
+        {
+          "package": "Client.Web 1",
+          "messages": {
+            "Client.Web.Open": {
+              "dir": "in",
+              "schema": {
+                "type": [
+                  "object",
+                  "string"
+                ],
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "Client.Web.Close": {
+              "dir": "in",
+              "schema": {
+                "type": [
+                  "object",
+                  "string"
+                ],
+                "properties": {
+                  "id": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "capabilities": [
-      "read-output",
       "open-web"
     ],
     "publisher": "bitmuse"
-  }
+  },
+  "types": "./src/types.ts"
 }

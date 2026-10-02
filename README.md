@@ -12,7 +12,12 @@ While enabled it sends `Core.Supports.Add ["Client.Web 1"]` (and `Remove` when d
 
 A site that refuses to be framed (`X-Frame-Options`, CSP `frame-ancestors`, e.g. underspire.net's `/matrix/` and Notes) shows the browser's error in the tab; press **Always** on the tab's bar to send that site's pages to a new window from then on (remembered on this device).
 
+A body of the wrong shape (an array, a number) is refused by the manifest's contract with one line in the session. A replayed `Open` (the snapshot after a reconnect) never reopens a page. When a page opens in a tab, the screen reader hears "<title> opened in a new view tab. Alt+O returns to the game output."
+
 Nothing is sent to the game besides the `Core.Supports` line. The pages a game opened close with the extension.
 
+## ☰ Game notes
+When a scene provider sets the `notes_url` extra to an http(s) URL (Underspire's Views → Notes), the ☰ menu lists **Game notes**, which opens that page as the `notes` web tab. The row is listed only while the active session has a notes page.
+
 ## API
-`ctx.api('webpages')` returns `{ openSpec, closeId }` (the body parsers, exported for tests too).
+`ctx.api('webpages')` returns `{ openSpec, closeId, pages(sid?) }`: the body parsers, and the ids of the pages it opened in a session. Types are in `src/types.ts`.
